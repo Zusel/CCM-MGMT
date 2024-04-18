@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <v-main>
-      <HelloWorld />
+      <router-view />
     </v-main>
 
     <AppFooter />
@@ -11,3 +11,4 @@
 <script setup>
   //
 </script>
+
