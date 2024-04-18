@@ -1,0 +1,23 @@
+package de.itstimetoforget.backend.rest.customer.processor;
+
+import de.itstimetoforget.backend.rest.customer.entity.Customer;
+import de.itstimetoforget.backend.rest.customer.repository.CustomerRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
+
+@Component
+public class CustomerProcessor {
+
+    private final CustomerRepository customerRepository;
+
+    @Autowired
+    public CustomerProcessor(CustomerRepository customerRepository) {
+        this.customerRepository = customerRepository;
+    }
+
+    public void createCustomer(Customer customer) {
+        customerRepository.save(customer);
+    }
+
+}
