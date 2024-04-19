@@ -54,7 +54,7 @@
     </v-container>
     <v-container>
       <v-row justify="center">
-        <v-btn>
+        <v-btn @click="addCustomer()">
           Erstellen
         </v-btn>
       </v-row>
@@ -69,6 +69,8 @@
 </style>
 
 <script>
+import RESTUtils from "@/utils/RESTUtils";
+
 export default {
   name: 'AddCustomerComponent',
   data() {
@@ -82,6 +84,22 @@ export default {
       email: '',
       street: '',
       streetNumber: ''
+    }
+  },
+  methods: {
+    addCustomer: function () {
+      const customer = {
+        "firstName": this.firstName,
+        "lastName": this.lastName,
+        "postcode": this.postcode,
+        "city": this.city,
+        "mobileNumber": this.mobileNumber,
+        "landlineNumber": this.landlineNumber,
+        "email": this.email,
+        "street": this.street,
+        "streetNumber": this.streetNumber
+      }
+      RESTUtils.sendPostRequest("/customer", customer)
     }
   }
 }
