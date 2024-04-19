@@ -1,7 +1,6 @@
 package de.itstimetoforget.backend.rest.employee.resources;
 
 
-import de.itstimetoforget.backend.rest.customer.entity.Customer;
 import de.itstimetoforget.backend.rest.employee.entity.Employee;
 import de.itstimetoforget.backend.rest.employee.service.EmployeeService;
 import jakarta.servlet.http.HttpServletResponse;

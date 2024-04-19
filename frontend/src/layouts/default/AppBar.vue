@@ -18,6 +18,7 @@
           Administration
           <v-menu activator="parent">
             <v-list>
+              <v-list-item title="Mitarbeiter Hinzufügen" @click="navigateAddEmployees"/>
               <v-list-item title="Übersicht Mitarbeiter" @click="navigateOverviewEmployees"/>
             </v-list>
           </v-menu>
@@ -41,6 +42,9 @@ export default {
     },
     navigateOverviewEmployees: function () {
       this.$router.push('/OverviewEmployee');
+    },
+    navigateAddEmployees: function (){
+      this.$router.push('/AddEmployee');
     }
   }
 }
