@@ -1,37 +1,21 @@
 <template>
-  <v-container style="background-color: white;margin-top: 10vh">
+  <v-container style="background-color: white;margin-top: 5vh">
     <v-text-field class="centered-input text--darken-3 mt-3" v-model="searchTerm" label="suchen"
                   style="color: black; justify-self: center"/>
-    <v-table>
-      <thead>
-      <tr>
-        <th>Vorname</th>
-        <th>Nachname</th>
-        <th>Handynummer</th>
-        <th>Festnetznummer</th>
-        <th>Email</th>
-        <th>Straße</th>
-        <th>Hausnummer</th>
-        <th>Postleitzahl</th>
-        <th>Stadt</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr v-for="item in filteredCustomers" :key="item.id">
-        <td>{{ item.firstName }}</td>
-        <td>{{ item.lastName }}</td>
-        <td>{{ item.mobileNumber }}</td>
-        <td>{{ item.landlineNumber }}</td>
-        <td>{{ item.email }}</td>
-        <td>{{ item.street }}</td>
-        <td>{{ item.streetNumber }}</td>
-        <td>{{ item.postcode }}</td>
-        <td>{{ item.city }}</td>
-      </tr>
-      </tbody>
-    </v-table>
+    <v-data-table
+      :headers="dataTableHeaders"
+      :items="customers"
+      :search="searchTerm"
+      item-key="id"
+      style="max-height: 70vh; overflow-y: scroll;">
+      <template v-slot:item.actions="{item}">
+        <edit-customer-component :customer="item"/>
+        <v-btn @click="deleteCustomer(item)">
+          Löschen
+        </v-btn>
+      </template>
+    </v-data-table>
   </v-container>
-
 </template>
 
 <style scoped>
@@ -40,32 +24,31 @@
 
 <script>
 import RESTUtils from "@/utils/RESTUtils";
+import EditCustomerComponent from "@/components/com_EditCustomer.vue";
 
 export default {
   name: 'OverviewCustomerComponent',
+  components: {EditCustomerComponent},
   created() {
     this.getCustomer();
   },
-  computed: {
-    filteredCustomers: function () {
-      if (this.searchTerm != null) {
-        let returnArray = [];
-        for (const customer of this.customers) {
-          for (const field of Object.keys(customer)) {
-            if (typeof customer[field] == "string" && customer[field].indexOf(this.searchTerm) > -1) {
-              returnArray.push(customer);
-            }
-          }
-        }
-        return returnArray;
-      }
-      return this.customers;
-    }
-  },
   data() {
     return {
-      customers: null,
+      customers: [],
       searchTerm: null,
+      openEditDialog: false,
+      dataTableHeaders: [
+        {key: "firstName", title: "Vorname"},
+        {key: "lastName", title: "Nachname"},
+        {key: "mobileNumber", title: "Handynummer"},
+        {key: "landlineNumber", title: "Festnetznummer"},
+        {key: "email", title: "Email"},
+        {key: "street", title: "Straße"},
+        {key: "streetNumber", title: "Hausnummer"},
+        {key: "postcode", title: "Postleitzahl"},
+        {key: "city", title: "Stadt"},
+        {key: "actions", title: "Aktionen", align: "center", sortable: false},
+      ]
     }
   }
   ,
@@ -76,6 +59,13 @@ export default {
           this.customers = response.data;
         })
         .catch(error => console.log(error));
+    },
+    deleteCustomer: function (customer) {
+      RESTUtils.sendDeleteRequest("/customer", customer);
+      this.customers.splice(this.customers.indexOf(customer), 1);
+    },
+    editCustomer: function (customer) {
+      this.openEditDialog = true;
     }
   }
 }

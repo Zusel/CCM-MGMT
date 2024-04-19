@@ -24,7 +24,23 @@ public class CustomerService {
         customerProcessor.createCustomer(customer);
     }
 
+    public void createCustomers(List<Customer> customers) {
+        customerProcessor.createCustomers(customers);
+    }
+
     public List<Customer> getAllCustomers() {
         return customerProvider.getAllCustomers();
+    }
+
+    public void deleteCustomerById(Long id) {
+        customerProcessor.deleteCustomerById(id);
+    }
+
+    public Customer getCustomerById(Long id) {
+        return customerProvider.getCustomerById(id);
+    }
+
+    public void updateCustomer(Customer customer) {
+        customerProcessor.updateCustomerById(customer);
     }
 }

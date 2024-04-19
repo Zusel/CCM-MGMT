@@ -4,7 +4,8 @@ import de.itstimetoforget.backend.rest.customer.entity.Customer;
 import de.itstimetoforget.backend.rest.customer.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Component
 public class CustomerProcessor {
@@ -17,6 +18,18 @@ public class CustomerProcessor {
     }
 
     public void createCustomer(Customer customer) {
+        customerRepository.save(customer);
+    }
+
+    public void deleteCustomerById(Long id) {
+        customerRepository.deleteById(id);
+    }
+
+    public void createCustomers(List<Customer> customers) {
+        customerRepository.saveAll(customers);
+    }
+
+    public void updateCustomerById(Customer customer) {
         customerRepository.save(customer);
     }
 

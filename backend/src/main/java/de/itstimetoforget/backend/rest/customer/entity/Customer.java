@@ -102,4 +102,5 @@ public class Customer {
     public void setStreetNumber(String streetNumber) {
         this.streetNumber = streetNumber;
     }
+
 }
