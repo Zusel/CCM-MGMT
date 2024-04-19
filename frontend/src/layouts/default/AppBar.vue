@@ -1,19 +1,27 @@
 <template>
   <v-app-bar>
     <v-spacer/>
-    <v-list id="HeaderList">
+    <v-list id="headerList">
       <v-list-item>
-        <v-list-item>
-          <v-btn>
-            Kundenverwaltung
-            <v-menu activator="parent">
-              <v-list>
-                <v-list-item title="Hinzufügen" @click="navigateAddCustomer"/>
-                <v-list-item title="Übersicht" @click="navigateOverviewCustomer"/>
-              </v-list>
-            </v-menu>
-          </v-btn>
-        </v-list-item>
+        <v-btn>
+          Kundenverwaltung
+          <v-menu activator="parent">
+            <v-list>
+              <v-list-item title="Hinzufügen" @click="navigateAddCustomer"/>
+              <v-list-item title="Übersicht" @click="navigateOverviewCustomer"/>
+            </v-list>
+          </v-menu>
+        </v-btn>
+      </v-list-item>
+      <v-list-item>
+        <v-btn>
+          Administration
+          <v-menu activator="parent">
+            <v-list>
+              <v-list-item title="Übersicht Mitarbeiter" @click="navigateOverviewEmployees"/>
+            </v-list>
+          </v-menu>
+        </v-btn>
       </v-list-item>
     </v-list>
     <v-spacer/>
@@ -28,15 +36,18 @@ export default {
     navigateAddCustomer: function () {
       this.$router.push('/AddCustomer');
     },
-    navigateOverviewCustomer: function (){
+    navigateOverviewCustomer: function () {
       this.$router.push('/OverviewCustomer');
+    },
+    navigateOverviewEmployees: function () {
+      this.$router.push('/OverviewEmployee');
     }
   }
 }
 </script>
 
 <style scoped>
-#HeaderList {
+#headerList {
   background-color: black;
   display: flex;
   justify-content: center;
