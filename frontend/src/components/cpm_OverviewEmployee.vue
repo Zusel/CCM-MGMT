@@ -49,7 +49,6 @@ export default {
     return {
       employees: [],
       searchTerm: null,
-      openEditDialog: false,
       dataTableHeaders: [
         {key: "shortName", title: "Kürzel"},
         {key: "firstName", title: "Vorname"},

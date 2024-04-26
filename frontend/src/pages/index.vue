@@ -1,6 +1,11 @@
 <template>
 </template>
 
-<script setup>
-  //
+<script>
+export default {
+  name: 'Home',
+  created() {
+    this.$router.push('/Dashboard');
+  }
+}
 </script>

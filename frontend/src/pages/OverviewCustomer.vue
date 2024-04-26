@@ -1,5 +1,5 @@
 <template>
-  <overview-customer-component/>
+  <overview-customer-component :overview="true"/>
 </template>
 
 <style scoped>

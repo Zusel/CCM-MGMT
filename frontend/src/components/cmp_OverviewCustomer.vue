@@ -36,7 +36,6 @@ export default {
     return {
       customers: [],
       searchTerm: null,
-      openEditDialog: false,
       dataTableHeaders: [
         {key: "firstName", title: "Vorname"},
         {key: "lastName", title: "Nachname"},
@@ -63,9 +62,6 @@ export default {
     deleteCustomer: function (customer) {
       RESTUtils.sendDeleteRequest("/customer", customer);
       this.customers.splice(this.customers.indexOf(customer), 1);
-    },
-    editCustomer: function (customer) {
-      this.openEditDialog = true;
     }
   }
 }
