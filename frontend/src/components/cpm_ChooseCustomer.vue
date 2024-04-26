@@ -13,7 +13,7 @@
         item-key="id"
         style="max-height: 70vh; overflow-y: scroll;">
         <template v-slot:item.actions="{item}">
-          <v-btn @click="this.choosed = item.value">Auswählen</v-btn>
+          <v-btn @click="chooseCustomer(item)">Auswählen</v-btn>
         </template>
       </v-data-table>
     </v-container>
@@ -32,33 +32,11 @@ import RESTUtils from "@/utils/RESTUtils";
 export default {
   name: 'ChooseCustomerComponent',
   props: {
-    choosed: String,
+    choosed: Object,
   },
+  emits: ["update:choosed"],
   created() {
     this.getCustomer();
-  },
-  data() {
-    return {
-      data() {
-        return {
-          customers: [],
-          dialog: false,
-          searchTerm: null,
-          dataTableHeaders: [
-            {key: "firstName", title: "Vorname"},
-            {key: "lastName", title: "Nachname"},
-            {key: "mobileNumber", title: "Handynummer"},
-            {key: "landlineNumber", title: "Festnetznummer"},
-            {key: "email", title: "Email"},
-            {key: "street", title: "Straße"},
-            {key: "streetNumber", title: "Hausnummer"},
-            {key: "postcode", title: "Postleitzahl"},
-            {key: "city", title: "Stadt"},
-            {key: "actions", title: "Aktionen", align: "center", sortable: false},
-          ]
-        }
-      }
-    }
   },
   methods: {
     getCustomer: function () {
@@ -67,7 +45,31 @@ export default {
           this.customers = response.data;
         })
         .catch(error => console.log(error));
+    },
+    chooseCustomer: function (item) {
+      this.$emit("update:choosed", item);
+      this.dialog = false;
     }
   },
+  data() {
+    return {
+      searchTerm: "",
+      customers: [],
+      dialog: false,
+      dataTableHeaders: [
+        {key: "firstName", title: "Vorname"},
+        {key: "lastName", title: "Nachname"},
+        {key: "mobileNumber", title: "Handynummer"},
+        {key: "landlineNumber", title: "Festnetznummer"},
+        {key: "email", title: "Email"},
+        {key: "street", title: "Straße"},
+        {key: "streetNumber", title: "Hausnummer"},
+        {key: "postcode", title: "Postleitzahl"},
+        {key: "city", title: "Stadt"},
+        {key: "actions", title: "Aktionen", align: "center", sortable: false},
+      ]
+    }
+  },
+
 }
 </script>

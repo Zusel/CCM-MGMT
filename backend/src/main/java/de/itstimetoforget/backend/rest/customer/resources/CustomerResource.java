@@ -23,9 +23,8 @@ public class CustomerResource {
     }
 
     @PostMapping(path = "")
-    public void createCustomer(@RequestBody Customer customer, HttpServletResponse response) {
-        customerService.createCustomer(customer);
-        response.setStatus(HttpServletResponse.SC_ACCEPTED);
+    public Customer createCustomer(@RequestBody Customer customer, HttpServletResponse response) {
+        return customerService.createCustomer(customer);
     }
 
     @GetMapping(path = "")

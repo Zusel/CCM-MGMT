@@ -17,8 +17,8 @@ public class CustomerProcessor {
         this.customerRepository = customerRepository;
     }
 
-    public void createCustomer(Customer customer) {
-        customerRepository.save(customer);
+    public Customer createCustomer(Customer customer) {
+        return customerRepository.save(customer);
     }
 
     public void deleteCustomerById(Long id) {

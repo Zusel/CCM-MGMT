@@ -20,8 +20,8 @@ public class CustomerService {
         this.customerProvider = customerProvider;
     }
 
-    public void createCustomer(Customer customer) {
-        customerProcessor.createCustomer(customer);
+    public Customer createCustomer(Customer customer) {
+        return customerProcessor.createCustomer(customer);
     }
 
     public void createCustomers(List<Customer> customers) {

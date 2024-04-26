@@ -73,6 +73,10 @@ import RESTUtils from "@/utils/RESTUtils";
 
 export default {
   name: 'AddCustomerComponent',
+  emits: ["update:customer"],
+  props: {
+    customer: Object
+  },
   data() {
     return {
       firstName: '',
@@ -100,6 +104,8 @@ export default {
         "streetNumber": this.streetNumber
       }
       RESTUtils.sendPostRequest("/customer", customer)
+        .then(customer => this.$emit("update:customer", customer))
+        .catch(error => console.log(error))
     }
   }
 }
