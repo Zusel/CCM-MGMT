@@ -1,12 +1,10 @@
-package de.itstimetoforget.backend.rest.employee.processor;
+package de.itstimetoforget.backend.rest.processor;
 
-import de.itstimetoforget.backend.rest.employee.entity.Employee;
-import de.itstimetoforget.backend.rest.employee.repository.EmployeeRepository;
-import de.itstimetoforget.backend.rest.employee.service.EmployeeService;
+import de.itstimetoforget.backend.rest.entity.Employee;
+import de.itstimetoforget.backend.rest.repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;

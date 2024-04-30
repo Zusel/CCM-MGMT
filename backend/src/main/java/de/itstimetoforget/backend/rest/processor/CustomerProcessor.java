@@ -1,7 +1,7 @@
-package de.itstimetoforget.backend.rest.customer.processor;
+package de.itstimetoforget.backend.rest.processor;
 
-import de.itstimetoforget.backend.rest.customer.entity.Customer;
-import de.itstimetoforget.backend.rest.customer.repository.CustomerRepository;
+import de.itstimetoforget.backend.rest.entity.Customer;
+import de.itstimetoforget.backend.rest.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

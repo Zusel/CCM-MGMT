@@ -1,8 +1,8 @@
-package de.itstimetoforget.backend.rest.employee.resources;
+package de.itstimetoforget.backend.rest.resource;
 
 
-import de.itstimetoforget.backend.rest.employee.entity.Employee;
-import de.itstimetoforget.backend.rest.employee.service.EmployeeService;
+import de.itstimetoforget.backend.rest.entity.Employee;
+import de.itstimetoforget.backend.rest.service.EmployeeService;
 import jakarta.servlet.http.HttpServletResponse;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;

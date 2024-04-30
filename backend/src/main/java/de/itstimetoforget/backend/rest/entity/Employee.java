@@ -1,4 +1,4 @@
-package de.itstimetoforget.backend.rest.employee.entity;
+package de.itstimetoforget.backend.rest.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.Entity;

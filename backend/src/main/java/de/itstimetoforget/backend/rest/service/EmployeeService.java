@@ -1,8 +1,8 @@
-package de.itstimetoforget.backend.rest.employee.service;
+package de.itstimetoforget.backend.rest.service;
 
-import de.itstimetoforget.backend.rest.employee.entity.Employee;
-import de.itstimetoforget.backend.rest.employee.processor.EmployeeProcessor;
-import de.itstimetoforget.backend.rest.employee.provider.EmployeeProvider;
+import de.itstimetoforget.backend.rest.entity.Employee;
+import de.itstimetoforget.backend.rest.processor.EmployeeProcessor;
+import de.itstimetoforget.backend.rest.provider.EmployeeProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

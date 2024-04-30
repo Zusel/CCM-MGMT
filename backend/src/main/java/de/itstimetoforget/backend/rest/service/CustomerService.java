@@ -1,8 +1,8 @@
-package de.itstimetoforget.backend.rest.customer.service;
+package de.itstimetoforget.backend.rest.service;
 
-import de.itstimetoforget.backend.rest.customer.entity.Customer;
-import de.itstimetoforget.backend.rest.customer.processor.CustomerProcessor;
-import de.itstimetoforget.backend.rest.customer.provider.CustomerProvider;
+import de.itstimetoforget.backend.rest.entity.Customer;
+import de.itstimetoforget.backend.rest.processor.CustomerProcessor;
+import de.itstimetoforget.backend.rest.provider.CustomerProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -42,5 +42,9 @@ public class CustomerService {
 
     public void updateCustomer(Customer customer) {
         customerProcessor.updateCustomerById(customer);
+    }
+
+    public List<Customer> filterCustomer(Customer customer) {
+        return customerProvider.filterCustomer(customer);
     }
 }

@@ -1,7 +1,7 @@
-package de.itstimetoforget.backend.rest.customer.resources;
+package de.itstimetoforget.backend.rest.resource;
 
-import de.itstimetoforget.backend.rest.customer.entity.Customer;
-import de.itstimetoforget.backend.rest.customer.service.CustomerService;
+import de.itstimetoforget.backend.rest.entity.Customer;
+import de.itstimetoforget.backend.rest.service.CustomerService;
 import jakarta.servlet.http.HttpServletResponse;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -67,6 +67,12 @@ public class CustomerResource {
             customers.add(customer);
         }
         customerService.createCustomers(customers);
+    }
+
+
+    @PostMapping(path = "/filter")
+    public List<Customer> filterCustomer(@RequestBody Customer customer) {
+        return customerService.filterCustomer(customer);
     }
 
 

@@ -1,8 +1,9 @@
-package de.itstimetoforget.backend.rest.customer.entity;
+package de.itstimetoforget.backend.rest.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
+
+import java.util.Date;
 
 @Entity
 @Table(name = "customer")
@@ -18,10 +19,25 @@ public class Customer {
     String street;
     String streetNumber;
 
+    @Temporal(TemporalType.TIMESTAMP)
+    Date createdOn;
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @PrePersist
+    protected void onCreate() {
+        createdOn = new Date();
+    }
+
+    public Date getCreatedOn() {
+        return createdOn;
+    }
+
+    public void setCreatedOn(Date createdOn) {
+        this.createdOn = createdOn;
+    }
 
     public String getFirstName() {
         return firstName;

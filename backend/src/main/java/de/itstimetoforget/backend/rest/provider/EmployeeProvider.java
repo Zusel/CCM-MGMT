@@ -1,8 +1,9 @@
-package de.itstimetoforget.backend.rest.employee.provider;
+package de.itstimetoforget.backend.rest.provider;
 
-import de.itstimetoforget.backend.rest.employee.entity.Employee;
-import de.itstimetoforget.backend.rest.employee.repository.EmployeeRepository;
+import de.itstimetoforget.backend.rest.entity.Employee;
+import de.itstimetoforget.backend.rest.repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
