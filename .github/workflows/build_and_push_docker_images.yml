@@ -31,7 +31,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v5
         with:
-          images: ccm-mgmt/backend
+          images: ghcr.io/${{ github.repository }}
 
       - name: Build and Push
         uses: docker/build-push-action@v5
