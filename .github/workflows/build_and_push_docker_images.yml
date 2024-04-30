@@ -25,7 +25,7 @@ jobs:
         with:
           images: ccm-mgmt/backend
       - name: Build and Push
-        uses: docker/build-push-action@
+        uses: docker/build-push-action@v3
         with:
           context: .
           file: docker/backend/Dockerfile
