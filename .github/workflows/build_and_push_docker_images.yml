@@ -28,6 +28,7 @@ jobs:
         uses: docker/metadata-action@v5
         with:
           images: ccm-mgmt/backend
+          tags: ccm-mgmt/backend:${{ GITHUB_REF }}
       - name: Build and Push
         uses: docker/build-push-action@v3
         with:
