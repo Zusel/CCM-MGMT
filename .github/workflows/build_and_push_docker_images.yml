@@ -28,6 +28,7 @@ jobs:
         uses: docker/metadata-action@v5
         with:
           images: ccm-mgmt/backend
+
       - name: Build and Push
         uses: docker/build-push-action@v3
         with:
@@ -35,3 +36,5 @@ jobs:
           file: docker/backend/Dockerfile
           push: true
           tags: ccm-mgmt/backend:${{ github.ref_name }}
+          secrets: |
+            GIT_AUTH_TOKEN=${{ secrets.MYTOKEN }}
