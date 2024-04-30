@@ -34,4 +34,4 @@ jobs:
           context: .
           file: docker/backend/Dockerfile
           push: true
-          tags: ccm-mgmt/backend:${{ GITHUB_REF }}
+          tags: ccm-mgmt/backend:${{ github.ref_name }}
