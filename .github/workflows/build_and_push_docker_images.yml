@@ -13,7 +13,7 @@ jobs:
       strategy:
         matrix:
           type: [frontend, backend]
-      name: Push Backend Image
+      name: Push ${{ matrix.type }} Image
       runs-on: ubuntu-latest
       permissions:
         contents: read
