@@ -1,6 +1,7 @@
 import axios from "axios";
-
-const BASE_URL = "http://localhost:8080";
+const VITE_BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
+const VITE_BACKEND_PORT = import.meta.env.VITE_BACKEND_PORT;
+const BASE_URL = VITE_BACKEND_URL + ":" + VITE_BACKEND_PORT;
 
 const RESTUtils = {
   sendRequest(type, path, body) {
