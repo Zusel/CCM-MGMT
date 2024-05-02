@@ -1,0 +1,48 @@
+services:
+  backend:
+    image: ghcr.io/zusel/ccm-mgmt-backend:master
+    ports:
+      - ${SERVER_PORT}:${SERVER_PORT}
+    environment:
+      SERVER_PORT: ${SERVER_PORT}
+      SERVER_ADDRESS: ${SERVER_ADDRESS}
+      MARIADB_DATABASE_NAME: ${MARIADB_DATABASE_NAME}
+      MARIADB_HOST: ${MARIADB_HOST}
+      MARIADB_PASSWORD: ${MARIADB_PASSWORD}
+      MARIADB_PORT: ${MARIADB_PORT}
+      MARIADB_USERNAME: ${MARIADB_USERNAME}
+    depends_on:
+      - mariadb
+
+  frontend:
+    image: ghcr.io/zusel/ccm-mgmt-frontend:master
+    ports:
+      - ${VITE_SERVER_PORT}:${VITE_SERVER_PORT}
+    depends_on:
+      - backend
+    environment:
+      VITE_BACKEND_URL: ${VITE_BACKEND_URL}
+      VITE_BACKEND_PORT: ${VITE_BACKEND_PORT}
+      VITE_SERVER_PORT: ${VITE_SERVER_PORT}
+
+  mariadb:
+    image: mariadb:10.6.17
+    environment:
+      MYSQL_DATABASE: ${MARIADB_DATABASE}
+      MYSQL_USER: ${MARIADB_USERNAME}
+      MYSQL_PASSWORD: ${MARIADB_PASSWORD}
+      MYSQL_RANDOM_ROOT_PASSWORD: 'yes'
+    healthcheck:
+      interval: 30s
+      retries: 3
+      test:
+        [
+          "CMD",
+          "healthcheck.sh",
+          "--su-mysql",
+          "--connect",
+          "--innodb_initialized"
+        ]
+      timeout: 30s
+    volumes:
+      - ./mount_point/mariadb:/var/lib/mysql

@@ -1,17 +1,14 @@
 # CCM-MGMT
 
-## FRONTEND
-### env:
+## Env
+Alle benötigen env findet ihr unter .env.template.
+Die eingetragenen Werte sind nur Beispiele!!!!!
 
-- VITE_BACKEND_URL: hier bitte die url vom backend setzen
-- VITE_BACKEND_PORT: hier bitte den port vom backend setzen
+## lokales deployment
 
+- !!!Bitte achtet darauf das ihr alles wichtige in der .env gesetzt habe (kopie von .env.template)
+- danach einen Token im Github erzeugen (das Internet ist euer Freud) welcher package:read als Recht hat (wird zum pullen der img benötigt)
+- docker login ghcr.io
+- docker compose up -d
 
-## BACKEND
-### env:
-
-- MARIADB_DATABASE_NAME=(database name)
-- MARIADB_HOST=(database ip or hostname)
-- MARIADB_PASSWORD=(database user password)
-- MARIADB_PORT=(database port);
-- MARIADB_USERNAME=(database username)
+HERE WE GO
