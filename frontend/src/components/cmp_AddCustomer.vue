@@ -104,7 +104,7 @@ export default {
         "streetNumber": this.streetNumber
       }
       RESTUtils.sendPostRequest("/customer", customer)
-        .then(customer => this.$emit("update:customer", customer))
+        .then(console.log("customer erstellt"))
         .catch(error => console.log(error))
     }
   }

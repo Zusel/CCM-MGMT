@@ -75,5 +75,14 @@ public class CustomerResource {
         return customerService.filterCustomer(customer);
     }
 
+    @GetMapping(path = "/{userId}")
+    public Customer getCustomerById(@PathVariable Long userId, HttpServletResponse response) {
+        Customer customer = customerService.getCustomerById(userId);
+        if (customer == null) {
+            response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+        }
+        return customer;
+    }
+
 
 }
