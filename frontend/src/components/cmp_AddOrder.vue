@@ -1,59 +1,62 @@
 <template>
-  <v-container class="container" v-if="choosedCustomer === null" >
-      <v-row>
-        <v-col>
-          <v-list style="color: white; height: 15vh">
-            <v-list-item style="color: white;" @click="getSelectedUser(customer.id)" :key="customer.id" v-for="customer in filteredCustomers">
-            <v-list-item-title>
-              {{"id:" + customer.id + " | " + "vorname: " +customer.firstName + " | " + "nachname: " +customer.lastName + " | " + "postleitzahl: " +customer.postcode + " | " + "stadt: " +customer.city + " | " + "handynummer: " +customer.mobileNumber + " | " + "festnetznummer: " +customer.landlineNumber + " | " + "email: " +customer.email + " | " + "straße: " +customer.street + " | " + "hausnummer: " +customer.streetNumber}}
-            </v-list-item-title>
-            </v-list-item>
-          </v-list>
-        </v-col>
-      </v-row>
+  <v-container class="container" v-if="choosedCustomer === null">
     <v-row>
       <v-col>
-        <v-text-field class="inputFields" v-model="firstName"
+        <v-list style="color: white; height: 15vh">
+          <v-list-item style="color: white;" @click="getSelectedUser(customer.id)" :key="customer.id"
+                       v-for="customer in filteredCustomers">
+            <v-list-item-title>
+              {{
+                "id:" + customer.id + " | " + "vorname: " + customer.firstName + " | " + "nachname: " + customer.lastName + " | " + "postleitzahl: " + customer.postcode + " | " + "stadt: " + customer.city + " | " + "handynummer: " + customer.mobileNumber + " | " + "festnetznummer: " + customer.landlineNumber + " | " + "email: " + customer.email + " | " + "straße: " + customer.street + " | " + "hausnummer: " + customer.streetNumber
+              }}
+            </v-list-item-title>
+          </v-list-item>
+        </v-list>
+      </v-col>
+    </v-row>
+    <v-row>
+      <v-col>
+        <v-text-field v-model="firstName"
                       @update:modelValue="filterByValue" label="Vorname"/>
       </v-col>
       <v-col>
-        <v-text-field class="inputFields" v-model="lastName"
+        <v-text-field v-model="lastName"
                       label="Nachname"/>
       </v-col>
     </v-row>
     <v-row>
       <v-col>
-        <v-text-field class="inputFields" v-model="mobileNumber"
+        <v-text-field v-model="mobileNumber"
                       label="Handynummer"/>
       </v-col>
       <v-col>
-        <v-text-field class="inputFields" v-model="landlineNumber"
+        <v-text-field v-model="landlineNumber"
                       label="Festnetznummer"/>
       </v-col>
     </v-row>
     <v-row>
       <v-col>
-        <v-text-field class="inputFields" v-model="email"
+        <v-text-field v-model="email"
                       label="Email"/>
       </v-col>
     </v-row>
     <v-row>
       <v-col>
-        <v-text-field class="inputFields" v-model="street"
+        <v-text-field v-model="street"
                       label="Straße"/>
       </v-col>
       <v-col>
-        <v-text-field class="inputFields" v-model="streetNumber"
+        <v-text-field v-model="streetNumber"
                       label="Hausnummer"/>
       </v-col>
     </v-row>
     <v-row>
       <v-col>
-        <v-text-field class="inputFields" v-model="postcode"
+        <v-text-field v-model="postcode"
                       label="Postleitzahl"/>
       </v-col>
       <v-col>
-        <v-text-field class="inputFields" v-model="city"
+        <v-text-field v-model="city"
                       label="Stadt"/>
       </v-col>
     </v-row>
@@ -64,42 +67,100 @@
       </v-btn>
       <v-spacer/>
     </v-row>
-    </v-container>
-  <v-container class="container" v-if="choosedCustomer != null" :hidden="choosedCustomer === null">
+  </v-container>
+  <v-container class="container" v-if="choosedCustomer != null">
+    <v-row>
+      <v-col cols="3">
+        <v-container style="border-bottom-color: black; border: solid; width: fit-content">
+          <v-label><b>Gewählter Kunde:</b></v-label>
+          <br>
+          <v-label>{{ "vorname: " + choosedCustomer.firstName }}</v-label>
+          <br>
+          <v-label>{{ "nachname: " + choosedCustomer.lastName }}</v-label>
+          <br>
+          <v-label>{{ "postleitzahl: " + choosedCustomer.postcode }}</v-label>
+          <br>
+          <v-label>{{ "stadt: " + choosedCustomer.city }}</v-label>
+          <br>
+          <v-label>{{ "handynummer: " + choosedCustomer.mobileNumber }}</v-label>
+          <br>
+          <v-label>{{ "festnetznummer: " + choosedCustomer.landlineNumber }}</v-label>
+          <br>
+          <v-label>{{ "email: " + choosedCustomer.email }}</v-label>
+          <br>
+          <v-label>{{ "straße: " + choosedCustomer.street }}</v-label>
+          <br>
+          <v-label>{{ "hausnummer: " + choosedCustomer.streetNumber }}</v-label>
+          <br>
+        </v-container>
+        <v-row align="center" justify="center" style="margin-top: 1vh">
+          <v-btn style="color: white; margin-bottom: 1vh;" @click="resetAndDeleteCustomer">neuen Kunden wählen
+            (aktueller wird gelöscht)
+          </v-btn>
+          <v-btn style="color: white" @click="resetCustomer">neuen Kunden wählen</v-btn>
+        </v-row>
+      </v-col>
+      <v-col>
+        <v-container style="border-bottom-color: black; border: solid;">
+          <v-row>
+            <v-label>Passwörter:</v-label>
+            <v-data-table items-per-page="-1" :items="passwords" style="height: 20vh">
+              <template v-slot:bottom></template>
+              <template v-slot:item="{ item }">
+                <tr>
+                  <td style="color: white">{{ item.name }}</td>
+                  <td style="color: white">{{ item.password }}</td>
+                  <td>
+                    <v-icon @click="item => removePassword(item)" icon="@/assets/tashbin.png"/>
+                  </td>
+                </tr>
+              </template>
+            </v-data-table>
+          </v-row>
+          <v-spacer style="height: 4vh"/>
+          <v-row>
+            <v-text-field v-model="passwordName" label="Password-Name"/>
+          </v-row>
+          <v-row>
+            <v-text-field v-model="passwordValue" label="Passwort"/>
+          </v-row>
+          <v-row justify="center">
+            <v-btn @click="addPassword" style="color: white">
+              Passwort Hinzufügen
+            </v-btn>
+          </v-row>
+        </v-container>
+      </v-col>
+    </v-row>
     <v-row>
       <v-col>
-        <v-label style="color: black;"><b>Gewählter Kunde:</b></v-label><br>
-        <v-label class="inputFields">{{"vorname: " + choosedCustomer.firstName}}</v-label><br>
-        <v-label class="inputFields">{{"nachname: " + choosedCustomer.lastName}}</v-label><br>
-        <v-label class="inputFields">{{"postleitzahl: " + choosedCustomer.postcode}}</v-label><br>
-        <v-label class="inputFields">{{"stadt: " + choosedCustomer.city}}</v-label><br>
-        <v-label class="inputFields">{{"handynummer: " + choosedCustomer.mobileNumber}}</v-label><br>
-        <v-label class="inputFields">{{"festnetznummer: " + choosedCustomer.landlineNumber}}</v-label><br>
-        <v-label class="inputFields">{{"email: " + choosedCustomer.email}}</v-label><br>
-        <v-label class="inputFields">{{"straße: " + choosedCustomer.street}}</v-label><br>
-        <v-label class="inputFields">{{"hausnummer: " + choosedCustomer.streetNumber}}</v-label><br>
+        <v-label>Beschreibung:</v-label>
+        <v-textarea v-model="description"/>
       </v-col>
+    </v-row>
+    <v-row>
       <v-col>
-        <v-spacer/>
-        <v-row>
-          <v-btn @click="resetCustomer" style="margin-bottom: 5vh; margin-top: 5vh">
-            neuen Kunden wählen
-          </v-btn>
-        </v-row>
-        <v-row>
-          <v-btn @click="resetAndDeleteCustomer">
-            neuen Kunden wählen (aktueller wird gelöscht)
-          </v-btn>
-        </v-row>
-        <v-spacer/>
+        <v-label>Zubehör:</v-label>
+        <v-textarea v-model="equipment"/>
       </v-col>
+    </v-row>
+    <v-row align="center" justify="center">
+      <v-checkbox label="Express" v-model="express"/>
+    </v-row>
+    <v-row justify="center">
+      <v-btn style="color: white" @click="createOrder">
+        Auftrag erstellen
+      </v-btn>
     </v-row>
   </v-container>
 </template>
 
 <style scoped>
+.v-list-item-title {
+  color: white;
+}
 
-.inputFields {
+* {
   color: black;
 }
 
@@ -118,7 +179,7 @@ export default {
   methods: {
     createOrder: function () {
       const order = {
-        "customerId": this.customer.id,
+        "customerId": this.choosedCustomer,
         "description": this.description,
         "passwords": this.passwords,
         "equipment": this.equipment,
@@ -126,18 +187,18 @@ export default {
       };
       RESTUtils.sendPostRequest("/order", order);
     },
-    filterByValue: function (){
-      if(this.firstName.length>3||this.lastName.length>3||this.postcode.length>3||this.city.length>3||this.mobileNumber.length>3||this.landlineNumber.length>3||this.email.length>3||this.street.length>3||this.streetNumber.length>3){
+    filterByValue: function () {
+      if (this.firstName.length > 3 || this.lastName.length > 3 || this.postcode.length > 3 || this.city.length > 3 || this.mobileNumber.length > 3 || this.landlineNumber.length > 3 || this.email.length > 3 || this.street.length > 3 || this.streetNumber.length > 3) {
         const payload = {
-          "firstName":this.firstName,
-          "lastName":this.lastName,
-          "postcode":this.postcode,
-          "city":this.city,
-          "mobileNumber":this.mobileNumber,
-          "landlineNumber":this.landlineNumber,
-          "email":this.email,
-          "street":this.street,
-          "streetNumber":this.streetNumber
+          "firstName": this.firstName,
+          "lastName": this.lastName,
+          "postcode": this.postcode,
+          "city": this.city,
+          "mobileNumber": this.mobileNumber,
+          "landlineNumber": this.landlineNumber,
+          "email": this.email,
+          "street": this.street,
+          "streetNumber": this.streetNumber
         }
         RESTUtils.sendPostRequest("/customer/filter", payload)
           .then(response => {
@@ -146,54 +207,63 @@ export default {
           .catch(error => console.log(error));
       }
     },
-    getSelectedUser: function (customerId){
+    getSelectedUser: function (customerId) {
       RESTUtils.sendGetRequest("/customer/" + customerId)
-        .then(response =>{
+        .then(response => {
           this.choosedCustomer = response.data;
         })
         .catch(error => {
-          console.log("user not found. UserId: " + customerId + ".",error)
+          console.log("user not found. UserId: " + customerId + ".", error)
         })
     },
-    createCustomer: function (){
+    createCustomer: function () {
       const payload = {
-        "firstName":this.firstName,
-        "lastName":this.lastName,
-        "postcode":this.postcode,
-        "city":this.city,
-        "mobileNumber":this.mobileNumber,
-        "landlineNumber":this.landlineNumber,
-        "email":this.email,
-        "street":this.street,
-        "streetNumber":this.streetNumber,
+        "firstName": this.firstName,
+        "lastName": this.lastName,
+        "postcode": this.postcode,
+        "city": this.city,
+        "mobileNumber": this.mobileNumber,
+        "landlineNumber": this.landlineNumber,
+        "email": this.email,
+        "street": this.street,
+        "streetNumber": this.streetNumber,
       }
       RESTUtils.sendPostRequest("/customer", payload)
-        .then( response => {
+        .then(response => {
           this.choosedCustomer = response.data;
         })
         .catch(error => console.log(error))
     },
-    resetCustomer:function (){
+    resetCustomer: function () {
       this.choosedCustomer = null;
-      this.firstName='';
-      this.lastName='';
-      this.postcode='';
-      this.city='';
-      this.mobileNumber='';
-      this.landlineNumber='';
-      this.email='';
-      this.street='';
-      this.streetNumber='';
-      this.filteredCustomers=[];
+      this.firstName = '';
+      this.lastName = '';
+      this.postcode = '';
+      this.city = '';
+      this.mobileNumber = '';
+      this.landlineNumber = '';
+      this.email = '';
+      this.street = '';
+      this.streetNumber = '';
+      this.filteredCustomers = [];
     },
-    resetAndDeleteCustomer: function (){
+    resetAndDeleteCustomer: function () {
       RESTUtils.sendDeleteRequest("/customer", this.choosedCustomer)
         .then(this.resetCustomer())
-        .catch(error => {console.log(error)})
-    }
+        .catch(error => {
+          console.log(error)
+        })
     },
-  data(){
-    return{
+    addPassword: function () {
+      const newItem = {name: this.passwordName, password: this.passwordValue}
+      this.passwords.push(newItem);
+    },
+    removePassword: function (item) {
+      this.passwords.splice(this.passwords.indexOf(item), 1)
+    }
+  },
+  data() {
+    return {
       filteredCustomers: [],
       firstName: '',
       lastName: '',
@@ -205,6 +275,12 @@ export default {
       street: '',
       streetNumber: '',
       choosedCustomer: null,
+      passwords: [],
+      description: '',
+      equipment: '',
+      express: false,
+      passwordName: '',
+      passwordValue: ''
     }
   }
 

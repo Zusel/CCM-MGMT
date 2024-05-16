@@ -3,8 +3,11 @@ package de.itstimetoforget.backend.rest.entity;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @JsonIgnoreProperties(ignoreUnknown = true)
+@Table(name = "order")
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -14,7 +17,9 @@ public class Order {
     @JoinColumn(name = "customer_id")
     private Customer customerId;
     private String description;
-    private String passwords;
+
+    @OneToMany(mappedBy = "order")
+    private List<Password> passwords;
     private String equipment;
     private boolean express;
 
@@ -42,13 +47,6 @@ public class Order {
         this.description = description;
     }
 
-    public String getPasswords() {
-        return passwords;
-    }
-
-    public void setPasswords(String passwords) {
-        this.passwords = passwords;
-    }
 
     public String getEquipment() {
         return equipment;
