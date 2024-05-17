@@ -109,14 +109,17 @@
           <v-row>
             <v-col>
               <v-label>Passwörter:</v-label>
-              <v-data-table items-per-page="-1" :items="passwords" style="height: 20vh">
+              <v-data-table :headers="passwordHeaders" items-per-page="-1" :items="passwords"
+                            style="height: 20vh">
                 <template v-slot:bottom></template>
                 <template v-slot:item="{ item }">
                   <tr>
                     <td style="color: white">{{ item.name }}</td>
                     <td style="color: white">{{ item.password }}</td>
-                    <td>
-                      <v-icon @click="item => removePassword(item)" icon="@/assets/tashbin.png"/>
+                    <td style="width: 10px">
+                      <v-avatar>
+                        <v-img @click="item => removePassword(item)" src="@/assets/trashbin.png"/>
+                      </v-avatar>
                     </td>
                   </tr>
                 </template>
@@ -147,7 +150,7 @@
       </v-col>
     </v-row>
     <v-row align="center" justify="center">
-        <v-checkbox label="Ist eine Express bearbeitung gewünscht?" v-model="express"/>
+      <v-checkbox label="Ist eine Express bearbeitung gewünscht?" v-model="express"/>
     </v-row>
     <v-row justify="center">
       <v-btn style="color: white" @click="createOrder">
@@ -259,6 +262,8 @@ export default {
     addPassword: function () {
       const newItem = {name: this.passwordName, password: this.passwordValue}
       this.passwords.push(newItem);
+      this.passwordName = "";
+      this.passwordValue = "";
     },
     removePassword: function (item) {
       this.passwords.splice(this.passwords.indexOf(item), 1)
@@ -266,6 +271,14 @@ export default {
   },
   data() {
     return {
+      passwordHeaders: [
+        {
+          title: "Name"
+        },
+        {
+          title: "Passwort"
+        }
+      ],
       filteredCustomers: [],
       firstName: '',
       lastName: '',
@@ -282,7 +295,7 @@ export default {
       equipment: '',
       express: false,
       passwordName: '',
-      passwordValue: ''
+      passwordValue: '',
     }
   }
 
