@@ -71,7 +71,7 @@
   <v-container class="container" v-if="choosedCustomer != null">
     <v-row>
       <v-col cols="3">
-        <v-container style="border-bottom-color: black; border: solid; width: fit-content">
+        <v-container style="border-bottom-color: black; border: solid;">
           <v-label><b>Gewählter Kunde:</b></v-label>
           <br>
           <v-label>{{ "vorname: " + choosedCustomer.firstName }}</v-label>
@@ -92,60 +92,62 @@
           <br>
           <v-label>{{ "hausnummer: " + choosedCustomer.streetNumber }}</v-label>
           <br>
+          <v-row align="center" justify="center" style="margin-top: 1vh">
+            <v-btn style="color: white; margin-bottom: 1vh" @click="resetCustomer">neuen Kunden wählen</v-btn>
+          </v-row>
         </v-container>
-        <v-row align="center" justify="center" style="margin-top: 1vh">
-          <v-btn style="color: white; margin-bottom: 1vh;" @click="resetAndDeleteCustomer">neuen Kunden wählen
-            (aktueller wird gelöscht)
-          </v-btn>
-          <v-btn style="color: white" @click="resetCustomer">neuen Kunden wählen</v-btn>
-        </v-row>
       </v-col>
+      <v-col>
+        <v-container style="border: black solid; height: 100%; display: flex;flex-direction: column">
+          <v-textarea variant="outlined" rows="10" hide-details label="Beschreibung" v-model="description"/>
+        </v-container>
+      </v-col>
+    </v-row>
+    <v-row>
       <v-col>
         <v-container style="border-bottom-color: black; border: solid;">
           <v-row>
-            <v-label>Passwörter:</v-label>
-            <v-data-table items-per-page="-1" :items="passwords" style="height: 20vh">
-              <template v-slot:bottom></template>
-              <template v-slot:item="{ item }">
-                <tr>
-                  <td style="color: white">{{ item.name }}</td>
-                  <td style="color: white">{{ item.password }}</td>
-                  <td>
-                    <v-icon @click="item => removePassword(item)" icon="@/assets/tashbin.png"/>
-                  </td>
-                </tr>
-              </template>
-            </v-data-table>
-          </v-row>
-          <v-spacer style="height: 4vh"/>
-          <v-row>
-            <v-text-field v-model="passwordName" label="Password-Name"/>
+            <v-col>
+              <v-label>Passwörter:</v-label>
+              <v-data-table items-per-page="-1" :items="passwords" style="height: 20vh">
+                <template v-slot:bottom></template>
+                <template v-slot:item="{ item }">
+                  <tr>
+                    <td style="color: white">{{ item.name }}</td>
+                    <td style="color: white">{{ item.password }}</td>
+                    <td>
+                      <v-icon @click="item => removePassword(item)" icon="@/assets/tashbin.png"/>
+                    </td>
+                  </tr>
+                </template>
+              </v-data-table>
+            </v-col>
           </v-row>
           <v-row>
-            <v-text-field v-model="passwordValue" label="Passwort"/>
+            <v-col>
+              <v-text-field v-model="passwordName" label="Password-Name"/>
+            </v-col>
+          </v-row>
+          <v-row>
+            <v-col>
+              <v-text-field v-model="passwordValue" label="Passwort"/>
+            </v-col>
           </v-row>
           <v-row justify="center">
-            <v-btn @click="addPassword" style="color: white">
+            <v-btn @click="addPassword" style="color: white; margin-bottom: 1vh">
               Passwort Hinzufügen
             </v-btn>
           </v-row>
         </v-container>
       </v-col>
-    </v-row>
-    <v-row>
       <v-col>
-        <v-label>Beschreibung:</v-label>
-        <v-textarea v-model="description"/>
-      </v-col>
-    </v-row>
-    <v-row>
-      <v-col>
-        <v-label>Zubehör:</v-label>
-        <v-textarea v-model="equipment"/>
+        <v-container style="border: black solid; height: 100%">
+          <v-textarea label="Zubehör:" variant="outlined" rows="18" hide-details v-model="equipment"/>
+        </v-container>
       </v-col>
     </v-row>
     <v-row align="center" justify="center">
-      <v-checkbox label="Express" v-model="express"/>
+        <v-checkbox label="Ist eine Express bearbeitung gewünscht?" v-model="express"/>
     </v-row>
     <v-row justify="center">
       <v-btn style="color: white" @click="createOrder">
