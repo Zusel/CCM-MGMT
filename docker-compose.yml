@@ -12,6 +12,11 @@ services:
       MARIADB_USERNAME: ${MARIADB_USERNAME}
     depends_on:
       - mariadb
+    healthcheck:
+      test: curl --fail http://127.0.0.1:${SERVER_PORT}/health || exit 1
+      interval: 10s
+      retries: 5
+      timeout: 10s
 
   frontend:
     image: ghcr.io/zusel/ccm-mgmt-frontend:master
@@ -23,6 +28,11 @@ services:
       VITE_BACKEND_URL: ${VITE_BACKEND_URL}
       VITE_BACKEND_PORT: ${VITE_BACKEND_PORT}
       VITE_SERVER_PORT: ${VITE_SERVER_PORT}
+    healthcheck:
+      test: wget --no-verbose --tries=1 --spider http://localhost:${VITE_SERVER_PORT} || exit 1
+      interval: 10s
+      retries: 5
+      timeout: 10s
 
   mariadb:
     image: mariadb:10.6.17
