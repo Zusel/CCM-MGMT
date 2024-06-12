@@ -14,59 +14,7 @@
         </v-list>
       </v-col>
     </v-row>
-    <v-row>
-      <v-col>
-        <v-text-field v-model="firstName"
-                      @update:modelValue="filterByValue" label="Vorname"/>
-      </v-col>
-      <v-col>
-        <v-text-field v-model="lastName"
-                      label="Nachname"/>
-      </v-col>
-    </v-row>
-    <v-row>
-      <v-col>
-        <v-text-field v-model="mobileNumber"
-                      label="Handynummer"/>
-      </v-col>
-      <v-col>
-        <v-text-field v-model="landlineNumber"
-                      label="Festnetznummer"/>
-      </v-col>
-    </v-row>
-    <v-row>
-      <v-col>
-        <v-text-field v-model="email"
-                      label="Email"/>
-      </v-col>
-    </v-row>
-    <v-row>
-      <v-col>
-        <v-text-field v-model="street"
-                      label="Straße"/>
-      </v-col>
-      <v-col>
-        <v-text-field v-model="streetNumber"
-                      label="Hausnummer"/>
-      </v-col>
-    </v-row>
-    <v-row>
-      <v-col>
-        <v-text-field v-model="postcode"
-                      label="Postleitzahl"/>
-      </v-col>
-      <v-col>
-        <v-text-field v-model="city"
-                      label="Stadt"/>
-      </v-col>
-    </v-row>
-    <v-row>
-      <v-spacer/>
-      <v-btn @click="createCustomer">
-        Kunden erstellen
-      </v-btn>
-      <v-spacer/>
-    </v-row>
+    <add-customer-component @customerChanged="customer => filterByValue(customer)" v-model="addCustomer"/>
   </v-container>
   <v-container class="container" v-if="choosedCustomer != null">
     <v-row>
@@ -161,9 +109,6 @@
 </template>
 
 <style scoped>
-.v-list-item-title {
-  color: white;
-}
 
 * {
   color: black;
@@ -178,9 +123,11 @@
 
 <script>
 import RESTUtils from "@/utils/RESTUtils";
+import AddCustomerComponent from "@/components/cmp_AddCustomer.vue";
 
 export default {
   name: 'AddOrderComponent',
+  components: {AddCustomerComponent},
   methods: {
     createOrder: function () {
       const order = {
@@ -192,18 +139,18 @@ export default {
       };
       RESTUtils.sendPostRequest("/order", order);
     },
-    filterByValue: function () {
-      if (this.firstName.length > 3 || this.lastName.length > 3 || this.postcode.length > 3 || this.city.length > 3 || this.mobileNumber.length > 3 || this.landlineNumber.length > 3 || this.email.length > 3 || this.street.length > 3 || this.streetNumber.length > 3) {
+    filterByValue: function (customer) {
+      if (customer.firstName.length > 3 || customer.lastName.length > 3 || customer.postcode.length > 3 || customer.city.length > 3 || customer.mobileNumber.length > 3 || customer.landlineNumber.length > 3 || customer.email.length > 3 || customer.street.length > 3 || customer.streetNumber.length > 3) {
         const payload = {
-          "firstName": this.firstName,
-          "lastName": this.lastName,
-          "postcode": this.postcode,
-          "city": this.city,
-          "mobileNumber": this.mobileNumber,
-          "landlineNumber": this.landlineNumber,
-          "email": this.email,
-          "street": this.street,
-          "streetNumber": this.streetNumber
+          "firstName": customer.firstName,
+          "lastName": customer.lastName,
+          "postcode": customer.postcode,
+          "city": customer.city,
+          "mobileNumber": customer.mobileNumber,
+          "landlineNumber": customer.landlineNumber,
+          "email": customer.email,
+          "street": customer.street,
+          "streetNumber": customer.streetNumber
         }
         RESTUtils.sendPostRequest("/customer/filter", payload)
           .then(response => {
@@ -221,24 +168,6 @@ export default {
           console.log("user not found. UserId: " + customerId + ".", error)
         })
     },
-    createCustomer: function () {
-      const payload = {
-        "firstName": this.firstName,
-        "lastName": this.lastName,
-        "postcode": this.postcode,
-        "city": this.city,
-        "mobileNumber": this.mobileNumber,
-        "landlineNumber": this.landlineNumber,
-        "email": this.email,
-        "street": this.street,
-        "streetNumber": this.streetNumber,
-      }
-      RESTUtils.sendPostRequest("/customer", payload)
-        .then(response => {
-          this.choosedCustomer = response.data;
-        })
-        .catch(error => console.log(error))
-    },
     resetCustomer: function () {
       this.choosedCustomer = null;
       this.firstName = '';
@@ -251,13 +180,6 @@ export default {
       this.street = '';
       this.streetNumber = '';
       this.filteredCustomers = [];
-    },
-    resetAndDeleteCustomer: function () {
-      RESTUtils.sendDeleteRequest("/customer", this.choosedCustomer)
-        .then(this.resetCustomer())
-        .catch(error => {
-          console.log(error)
-        })
     },
     addPassword: function () {
       const newItem = {name: this.passwordName, password: this.passwordValue}
@@ -296,8 +218,20 @@ export default {
       express: false,
       passwordName: '',
       passwordValue: '',
+      addCustomer: '',
+      rules: {
+        notNull: value => !!value || 'Das Feld ist leer! Bitte überprüfe die Eingabe!',
+        length3: value => value.length > 2 || 'Der Feld-Inhalt ist zu kurz! Mindestens 3 Buchstaben/Zahlen notwendig!',
+        phonenumber: value => value.match("^[\\+]?[(]?[0-9]{3}[)]?[-\\s\\.]?[0-9]{3}[-\\s\\.]?[0-9]{4,6}$") !== null || 'Handynummer ist ungültig!',
+        email: value => {
+          if (value !== "") {
+            if (value.match("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$") === null) {
+              return 'Email ist ungültig!'
+            }
+          }
+        }
+      },
     }
   }
-
 }
 </script>
