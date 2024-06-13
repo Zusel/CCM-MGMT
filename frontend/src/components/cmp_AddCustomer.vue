@@ -124,8 +124,10 @@ export default {
           "streetNumber": this.streetNumber
         }
         RESTUtils.sendPostRequest("/customer", customer)
-          .then(
-            this.$root.$refs.vtoast.show({message: 'Customer erstellt'})
+          .then( newCustomer => {
+              this.$root.$refs.vtoast.show({message: 'Customer erstellt'})
+              this.$emit("customerCreated", newCustomer.data)
+          }
           )
           .catch(error => {
             console.log(error)

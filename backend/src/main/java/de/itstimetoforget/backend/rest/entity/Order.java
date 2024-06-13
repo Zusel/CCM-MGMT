@@ -1,24 +1,26 @@
 package de.itstimetoforget.backend.rest.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 
 import java.util.List;
 
 @Entity
-@JsonIgnoreProperties(ignoreUnknown = true)
-@Table(name = "order")
+@Table(name = "customer_order")
 public class Order {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "customer_id")
-    private Customer customerId;
+    private Customer customer;
     private String description;
 
-    @OneToMany(mappedBy = "order")
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonProperty(required = true)
     private List<Password> passwords;
     private String equipment;
     private boolean express;
@@ -31,12 +33,12 @@ public class Order {
         return id;
     }
 
-    public Customer getCustomerId() {
-        return customerId;
+    public Customer getCustomer() {
+        return customer;
     }
 
-    public void setCustomerId(Customer customerId) {
-        this.customerId = customerId;
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
 
     public String getDescription() {
@@ -62,5 +64,9 @@ public class Order {
 
     public void setExpress(boolean express) {
         this.express = express;
+    }
+
+    public List<Password> getPasswords() {
+        return passwords;
     }
 }

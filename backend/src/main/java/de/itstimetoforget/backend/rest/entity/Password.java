@@ -7,14 +7,14 @@ import jakarta.persistence.*;
 public class Password {
 
     String name;
-    String value;
+    String password;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "order_id")
     Order order;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     public String getName() {
@@ -25,12 +25,12 @@ public class Password {
         this.name = name;
     }
 
-    public String getValue() {
-        return value;
+    public String getPassword() {
+        return password;
     }
 
-    public void setValue(String value) {
-        this.value = value;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public Order getOrder() {
@@ -67,7 +67,7 @@ public class Password {
         }
 
         public PasswordBuilder withValue(String value) {
-            password.setValue(value);
+            password.setPassword(value);
             return this;
         }
 

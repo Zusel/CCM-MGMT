@@ -10,7 +10,7 @@ import jakarta.persistence.Id;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Employee {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String shortName;
     private String firstName;

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "customer")
@@ -22,8 +23,11 @@ public class Customer {
     @Temporal(TemporalType.TIMESTAMP)
     Date createdOn;
 
+    @OneToMany(mappedBy = "customer")
+    private List<Order> orders;
+
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @PrePersist
