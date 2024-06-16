@@ -13,6 +13,7 @@
       <v-list-item>
         <v-list>
           <v-list-item title="Hinzufügen" @click="navigateAddOrder"/>
+          <v-list-item title="Übersicht" @click="navigateOverviewOrder"/>
         </v-list>
       </v-list-item>
       <v-list-item><h3><b>Kundenverwaltung</b></h3></v-list-item>
@@ -56,6 +57,9 @@ export default {
     },
     navigateAddOrder: function () {
       this.$router.push('/AddOrder');
+    },
+    navigateOverviewOrder: function () {
+      this.$router.push("/OverviewOrder")
     }
   },
   data: () => ({

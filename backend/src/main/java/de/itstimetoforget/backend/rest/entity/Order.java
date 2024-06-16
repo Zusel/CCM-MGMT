@@ -19,7 +19,7 @@ public class Order {
     private Customer customer;
     private String description;
 
-    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "order")
     @JsonProperty(required = true)
     private List<Password> passwords;
     private String equipment;

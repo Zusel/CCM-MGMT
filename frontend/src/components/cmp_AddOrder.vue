@@ -161,13 +161,25 @@ export default {
     },
     createOrder: function () {
       const order = {
-        "customerId": this.choosedCustomer.id,
+        "customer": {
+          "id": this.choosedCustomer.id
+        },
         "description": this.description,
         "passwords": this.passwords,
         "equipment": this.equipment,
         "express": this.express,
       };
-      RESTUtils.sendPostRequest("/order", order);
+      RESTUtils.sendPostRequest("/order", order)
+        .then(
+          this.$root.$refs.vtoast.show({message: 'Auftrag erstellt'})
+        )
+        .catch(error => {
+          console.log(error)
+          this.$root.$refs.vtoast.show({
+            message: 'Fehler: ' + error,
+            color: 'failed'
+          })
+        });
     },
     addPassword: function () {
       const newItem = {name: this.passwordName, password: this.passwordValue}

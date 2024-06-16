@@ -1,16 +1,18 @@
 package de.itstimetoforget.backend.rest.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "password")
+@Table(name = "order_password")
 public class Password {
 
     String name;
     String password;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "order_id")
+    @JsonBackReference
+    @ManyToOne
+    @JoinColumn(name = "order_id", nullable = false)
     Order order;
 
     @Id
