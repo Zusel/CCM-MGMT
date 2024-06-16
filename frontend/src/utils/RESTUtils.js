@@ -25,37 +25,15 @@ const RESTUtils = {
   },
   sendGetRequest(path) {
     return this.sendRequest('GET', path, null)
-      .catch(error =>
-        this.$root.$refs.vtoast.show({
-          message: 'Fehler: ' + error,
-          color: 'failed'
-        })
-      );
   },
   sendDeleteRequest(path, body) {
     return this.sendRequest('DELETE', path, body)
-      .catch(error =>
-        this.$root.$refs.vtoast.show({
-          message: 'Fehler: ' + error,
-          color: 'failed'
-        })
-      );
   },
   sendPutRequest(path, body) {
-    return this.sendRequest('PUT', path, body).catch(error =>
-      this.$root.$refs.vtoast.show({
-        message: 'Fehler: ' + error,
-        color: 'failed'
-      })
-    );
+    return this.sendRequest('PUT', path, body)
   },
   sendPostRequest(path, body) {
-    return this.sendRequest('POST', path, body).catch(error =>
-      this.$root.$refs.vtoast.show({
-        message: 'Fehler: ' + error,
-        color: 'failed'
-      })
-    );
+    return this.sendRequest('POST', path, body)
   }
 };
 

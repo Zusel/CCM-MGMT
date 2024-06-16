@@ -51,7 +51,7 @@
         <v-row>
           <v-col>
             <v-text-field class="inputFields" v-model="postcode"
-                          :rules="[rules.notNull]"
+                          :rules="[rules.notNull, rules.onlynumbers]"
                           label="Postleitzahl"/>
           </v-col>
           <v-col>
@@ -104,7 +104,8 @@ export default {
               return 'Email ist ungültig!'
             }
           }
-        }
+        },
+        onlynumbers: value => /^\d+$/.test(value) || "Nur Zahlen sind erlaubt!"
       },
       form: null
     }

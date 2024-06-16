@@ -66,4 +66,29 @@ public class EmployeeResource {
         }
         employeeService.createEmployees(employees);
     }
+
+    @GetMapping("/shortnames")
+    public List<String> getShortNames() {
+        List<Employee> employees = employeeService.getAllEmployees();
+        return employees.stream().map(Employee::getShortName).toList();
+    }
+
+    @GetMapping("/getIdForShortName")
+    public Long getEmployeeIdByShortName(@RequestParam String shortName, HttpServletResponse response) {
+        List<Employee> employees = employeeService.getAllEmployees();
+        Long employeeId = employees.stream().filter(e -> e.getShortName().equals(shortName)).map(Employee::getId).findFirst().orElse(null);
+        if (employeeId == null) {
+            response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+        }
+        return employeeId;
+    }
+
+    @PostMapping("/validate")
+    public boolean validateEmployee(@RequestBody Employee employee) {
+        if (employee.getId() != null && employee.getShortName() != null) {
+            Employee filteredEmployee = employeeService.getEmployeeById(employee.getId());
+            return filteredEmployee.getShortName().equals(employee.getShortName());
+        }
+        return false;
+    }
 }
