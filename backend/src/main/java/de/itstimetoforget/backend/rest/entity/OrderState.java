@@ -1,5 +1,8 @@
 package de.itstimetoforget.backend.rest.entity;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public enum OrderState {
     OPEN("offen"),
     IN_PROGRESS("in bearbeitung"),
@@ -7,7 +10,6 @@ public enum OrderState {
     FOLLOW_UP("zur wiedervorlage"),
     WAIT_FOR_ORDERED_PARTS("wartet auf bestellte Teile"),
     COMPLETED("Erledigt"),
-    ALL("Alles"),
     ;
 
 
@@ -21,6 +23,7 @@ public enum OrderState {
         return name;
     }
 
+    @JsonCreator
     public static OrderState getState(String string) {
         try {
             OrderState.valueOf(string);

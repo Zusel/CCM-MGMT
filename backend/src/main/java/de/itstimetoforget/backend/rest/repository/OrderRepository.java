@@ -10,6 +10,6 @@ import java.util.List;
 
 public interface OrderRepository extends JpaRepository<Order, Long> {
 
-    @Query("SELECT co FROM Order co where co.status=:#{#state}")
+    @Query("SELECT co FROM Order co where co.state=:#{#state}")
     List<Order> getOrdersByState(@Param("state")OrderState state);
 }

@@ -1,6 +1,5 @@
 package de.itstimetoforget.backend.rest.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -18,16 +17,21 @@ public class Order {
     @ManyToOne
     @JoinColumn(name = "customer_id")
     private Customer customer;
+
+    @Lob
     private String description;
 
     @OneToMany(mappedBy = "order")
     @JsonProperty(required = true)
     private List<Password> passwords;
+
+    @Lob
     private String equipment;
     private boolean express;
 
     @NotNull
-    private OrderState status = OrderState.OPEN;
+    @Enumerated(EnumType.ORDINAL)
+    private OrderState state = OrderState.OPEN;
 
     public void setId(Long id) {
         this.id = id;
@@ -78,11 +82,11 @@ public class Order {
         this.passwords = passwords;
     }
 
-    public OrderState getStatus() {
-        return status;
+    public String getState() {
+        return state.getName();
     }
 
-    public void setStatus(OrderState status) {
-        this.status = status;
+    public void setState(OrderState state) {
+        this.state = state;
     }
 }
