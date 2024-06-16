@@ -79,6 +79,7 @@ import RESTUtils from "@/utils/RESTUtils";
 
 export default {
   name: 'EditCustomerComponent',
+  props: ["customer"],
   data() {
     return {
       dialog: false,

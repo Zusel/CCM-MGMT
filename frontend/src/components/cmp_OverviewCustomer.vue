@@ -8,7 +8,7 @@
       :search="searchTerm"
       item-key="id"
       style="max-height: 70vh; overflow-y: scroll;">
-      <template v-slot:item.actions="{item}">
+      <template v-slot:[`item.actions`]="{item}">
         <edit-customer-component :customer="item"/>
         <v-btn @click="deleteCustomer(item)">
           Löschen
