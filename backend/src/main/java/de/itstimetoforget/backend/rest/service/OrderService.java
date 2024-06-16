@@ -1,6 +1,7 @@
 package de.itstimetoforget.backend.rest.service;
 
 import de.itstimetoforget.backend.rest.entity.Order;
+import de.itstimetoforget.backend.rest.entity.OrderState;
 import de.itstimetoforget.backend.rest.processor.OrderProcessor;
 import de.itstimetoforget.backend.rest.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,5 +25,9 @@ public class OrderService {
 
     public List<Order> getAllOrders() {
         return orderProcessor.getAllOrders();
+    }
+
+    public List<Order> getOrdersByState(OrderState state) {
+        return orderProcessor.getOrdersByState(state);
     }
 }

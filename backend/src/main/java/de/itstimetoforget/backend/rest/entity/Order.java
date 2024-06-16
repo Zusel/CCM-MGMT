@@ -3,6 +3,7 @@ package de.itstimetoforget.backend.rest.entity;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 
 import java.util.List;
 
@@ -24,6 +25,9 @@ public class Order {
     private List<Password> passwords;
     private String equipment;
     private boolean express;
+
+    @NotNull
+    private OrderState status = OrderState.OPEN;
 
     public void setId(Long id) {
         this.id = id;
@@ -68,5 +72,17 @@ public class Order {
 
     public List<Password> getPasswords() {
         return passwords;
+    }
+
+    public void setPasswords(List<Password> passwords) {
+        this.passwords = passwords;
+    }
+
+    public OrderState getStatus() {
+        return status;
+    }
+
+    public void setStatus(OrderState status) {
+        this.status = status;
     }
 }
