@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class EmployeeService {
@@ -42,5 +43,9 @@ public class EmployeeService {
 
     public void deleteEmployee(Employee employee) {
         employeeProcessor.deleteEmployee(employee);
+    }
+
+    public Optional<Employee> getEmployeeByShortName(String shortName) {
+        return employeeProvider.getEmployeeByShortName(shortName);
     }
 }

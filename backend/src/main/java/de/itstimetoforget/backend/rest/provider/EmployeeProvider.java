@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Optional;
 
 @Component
 public class EmployeeProvider {
@@ -24,5 +25,9 @@ public class EmployeeProvider {
 
     public Employee getEmployeeById(Long id) {
         return employeeRepository.findById(id).orElse(null);
+    }
+
+    public Optional<Employee> getEmployeeByShortName(String shortName) {
+        return employeeRepository.getEmployeeByShortName(shortName);
     }
 }
