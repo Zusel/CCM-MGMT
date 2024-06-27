@@ -30,4 +30,9 @@ public class EmployeeProvider {
     public Optional<Employee> getEmployeeByShortName(String shortName) {
         return employeeRepository.getEmployeeByShortName(shortName);
     }
+
+    public Long getIdByShortName(String shortName) {
+        return employeeRepository.getIdByShortName(shortName);
+    }
+
 }

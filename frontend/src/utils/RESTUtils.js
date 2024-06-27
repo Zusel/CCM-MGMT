@@ -1,4 +1,5 @@
 import axios from "axios";
+import store from "@/main";
 
 const VITE_BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 const VITE_BACKEND_PORT = import.meta.env.VITE_BACKEND_PORT;
@@ -8,10 +9,16 @@ const RESTUtils = {
   sendRequest(type, path, body) {
     let options = {}
     if (body !== null) {
-      options = {
-        data: body
+      options["data"] = body
+    }
+
+    if (store.state.employeeShortName != null) {
+      options["auth"] = {
+        username: store.state.employeeShortName,
+        password: ""
       }
     }
+
     switch (type) {
       case 'GET':
         return axios.get(BASE_URL + path, options)
@@ -36,6 +43,5 @@ const RESTUtils = {
     return this.sendRequest('POST', path, body)
   }
 };
-
 
 export default RESTUtils;

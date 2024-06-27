@@ -5,6 +5,9 @@ import de.itstimetoforget.backend.rest.service.CustomerService;
 import jakarta.servlet.http.HttpServletResponse;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -23,7 +26,7 @@ public class CustomerResource {
     }
 
     @PostMapping(path = "")
-    public Customer createCustomer(@RequestBody Customer customer, HttpServletResponse response) {
+    public Customer createCustomer(@RequestBody Customer customer) {
         return customerService.createCustomer(customer);
     }
 

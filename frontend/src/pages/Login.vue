@@ -39,7 +39,6 @@ export default {
         RESTUtils.sendGetRequest("/employee/getIdForShortName?shortName=" + this.selectedEmployee)
           .then(response => {
             store.commit("setEmployeeShortName", this.selectedEmployee)
-            store.commit("setEmployeeId", response.data)
           })
       }
     }

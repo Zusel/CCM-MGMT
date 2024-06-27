@@ -14,7 +14,6 @@ import { fileURLToPath, URL } from 'node:url'
 // https://vitejs.dev/config/
 export default ({ mode }) => {
   process.env = {...process.env, ...loadEnv(mode, process.cwd())}
-  console.log(process.env.VITE_SERVER_PORT)
   return defineConfig({
     plugins: [
       VueRouter(),

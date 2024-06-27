@@ -48,4 +48,8 @@ public class EmployeeService {
     public Optional<Employee> getEmployeeByShortName(String shortName) {
         return employeeProvider.getEmployeeByShortName(shortName);
     }
+
+    public Long getIdByShortName(String shortName){
+        return employeeProvider.getIdByShortName(shortName);
+    }
 }
