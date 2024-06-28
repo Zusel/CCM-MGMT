@@ -2,7 +2,7 @@
   <v-container style="height: 100%; align-items: center; display: flex">
     <v-container style="border: white solid; width: 80vh">
       <v-select label="Mitarbeiter:" v-model="selectedEmployee" :items="employees"/>
-      <v-btn @click="setEmployee" style="width: 100%">Login</v-btn>
+      <v-btn @click="doLogin" style="width: 100%">Login</v-btn>
     </v-container>
   </v-container>
 
@@ -27,7 +27,7 @@ export default {
           this.employees = response.data
         })
     },
-    setEmployee: function () {
+    doLogin: function (){
       if (this.selectedEmployee === null) {
         this.$root.$refs.vtoast.show(
           {
@@ -36,10 +36,8 @@ export default {
           }
         )
       } else {
-        RESTUtils.sendGetRequest("/employee/getIdForShortName?shortName=" + this.selectedEmployee)
-          .then(response => {
-            store.commit("setEmployeeShortName", this.selectedEmployee)
-          })
+        store.commit("setEmployeeShortName", this.selectedEmployee)
+        this.$router.push("/Dashboard")
       }
     }
   },
