@@ -12,27 +12,12 @@ import App from './App.vue'
 
 // Composables
 import {createApp} from 'vue'
-import {createStore} from "vuex";
+import VueCookies from 'vue-cookies'
 
-const store = createStore({
-  state: {
-    employeeShortName: null
-  },
-  getters: {
-    getEmployeeShortName(state, getters) {
-      return getters.employeeShortName;
-    },
-  },
-  mutations: {
-    setEmployeeShortName(state, employeeShortName) {
-      state.employeeShortName = employeeShortName;
-    }
-  }
-})
 
-export default store
 const app = createApp(App)
-
+export default app
 registerPlugins(app)
-app.use(store)
+
+app.use(VueCookies, {expires: '1d'})
 app.mount('#app')

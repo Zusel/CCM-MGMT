@@ -7,7 +7,8 @@
 // Composables
 import {createRouter, createWebHistory} from 'vue-router/auto'
 import {setupLayouts} from 'virtual:generated-layouts'
-import store from "@/main";
+import VueCookies from "vue-cookies";
+
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -18,7 +19,7 @@ router.beforeEach((to, from) => {
   if (to.name === "/Login") {
     return true;
   }
-  if (store.state.employeeShortName === null) {
+  if (VueCookies.get("ccm_mgmt_shortname") === null) {
     console.log("Login benötigt!")
     return "/Login";
   }

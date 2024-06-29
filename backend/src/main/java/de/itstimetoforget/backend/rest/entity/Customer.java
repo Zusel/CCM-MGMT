@@ -2,6 +2,7 @@ package de.itstimetoforget.backend.rest.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
+import org.javers.core.metamodel.annotation.DiffIgnore;
 
 import java.util.Date;
 import java.util.List;
@@ -21,6 +22,7 @@ public class Customer {
     String streetNumber;
 
     @Temporal(TemporalType.TIMESTAMP)
+    @DiffIgnore
     Date createdOn;
 
     @OneToMany(mappedBy = "customer")

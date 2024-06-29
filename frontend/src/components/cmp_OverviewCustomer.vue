@@ -9,6 +9,7 @@
       item-key="id"
       style="max-height: 70vh; overflow-y: scroll;">
       <template v-slot:[`item.actions`]="{item}">
+        <show-customer-history-component :customer="item"/>
         <edit-customer-component :customer="item"/>
         <v-btn @click="deleteCustomer(item)">
           Löschen
@@ -25,10 +26,11 @@
 <script>
 import RESTUtils from "@/utils/RESTUtils";
 import EditCustomerComponent from "@/components/com_EditCustomer.vue";
+import ShowCustomerHistoryComponent from "@/components/cmp_ShowCustomerHistory.vue";
 
 export default {
   name: 'OverviewCustomerComponent',
-  components: {EditCustomerComponent},
+  components: {ShowCustomerHistoryComponent, EditCustomerComponent},
   created() {
     this.getCustomer();
   },

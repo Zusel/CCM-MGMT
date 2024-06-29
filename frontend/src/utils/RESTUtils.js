@@ -1,5 +1,5 @@
 import axios from "axios";
-import store from "@/main";
+import VueCookies from "vue-cookies";
 
 const VITE_BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 const VITE_BACKEND_PORT = import.meta.env.VITE_BACKEND_PORT;
@@ -12,9 +12,9 @@ const RESTUtils = {
       options["data"] = body
     }
 
-    if (store.state.employeeShortName != null) {
+    if (VueCookies.get("ccm_mgmt_shortname") != null) {
       options["auth"] = {
-        username: store.state.employeeShortName,
+        username: VueCookies.get("ccm_mgmt_shortname"),
         password: ""
       }
     }

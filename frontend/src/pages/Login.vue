@@ -36,7 +36,7 @@ export default {
           }
         )
       } else {
-        store.commit("setEmployeeShortName", this.selectedEmployee)
+        this.$cookies.set("ccm_mgmt_shortname", this.selectedEmployee,'7d')
         this.$router.push("/Dashboard")
       }
     }
