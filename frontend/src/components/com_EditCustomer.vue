@@ -7,11 +7,11 @@
       <v-container>
         <v-row>
           <v-col>
-            <v-text-field class="inputFields" v-model="customer.firstName"
+            <v-text-field class="inputFields" v-model="cp_customer.firstName"
                           label="Vorname"/>
           </v-col>
           <v-col>
-            <v-text-field class="inputFields" v-model="customer.lastName"
+            <v-text-field class="inputFields" v-model="cp_customer.lastName"
                           label="Nachname"/>
           </v-col>
         </v-row>
@@ -19,17 +19,17 @@
       <v-container>
         <v-row>
           <v-col>
-            <v-text-field class="inputFields" v-model="customer.mobileNumber"
+            <v-text-field class="inputFields" v-model="cp_customer.mobileNumber"
                           label="Handynummer"/>
           </v-col>
           <v-col>
-            <v-text-field class="inputFields" v-model="customer.landlineNumber"
+            <v-text-field class="inputFields" v-model="cp_customer.landlineNumber"
                           label="Festnetznummer"/>
           </v-col>
         </v-row>
         <v-row>
           <v-col>
-            <v-text-field class="inputFields" v-model="customer.email"
+            <v-text-field class="inputFields" v-model="cp_customer.email"
                           label="Email"/>
           </v-col>
         </v-row>
@@ -37,21 +37,21 @@
       <v-container>
         <v-row>
           <v-col>
-            <v-text-field class="inputFields" v-model="customer.street"
+            <v-text-field class="inputFields" v-model="cp_customer.street"
                           label="Straße"/>
           </v-col>
           <v-col>
-            <v-text-field class="inputFields" v-model="customer.streetNumber"
+            <v-text-field class="inputFields" v-model="cp_customer.streetNumber"
                           label="Hausnummer"/>
           </v-col>
         </v-row>
         <v-row>
           <v-col>
-            <v-text-field class="inputFields" v-model="customer.postcode"
+            <v-text-field class="inputFields" v-model="cp_customer.postcode"
                           label="Postleitzahl"/>
           </v-col>
           <v-col>
-            <v-text-field class="inputFields" v-model="customer.city"
+            <v-text-field class="inputFields" v-model="cp_customer.city"
                           label="Stadt"/>
           </v-col>
         </v-row>
@@ -59,7 +59,7 @@
       <v-container>
         <v-row justify="center">
           <v-spacer/>
-          <v-btn @click="updateCustomer(customer)">
+          <v-btn @click="updateCustomer(cp_customer)">
             Ändern
           </v-btn>
           <v-spacer/>
@@ -83,12 +83,14 @@ export default {
   data() {
     return {
       dialog: false,
+      cp_customer: {...this.customer}
     }
   },
   methods: {
     updateCustomer: function (customer) {
       this.dialog = false;
       RESTUtils.sendPostRequest("/customer/update", customer);
+      this.$emit("customerChanged", customer)
     }
   }
 

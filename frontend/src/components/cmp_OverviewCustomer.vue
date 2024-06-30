@@ -10,7 +10,9 @@
       style="max-height: 70vh; overflow-y: scroll;">
       <template v-slot:[`item.actions`]="{item}">
         <show-customer-history-component :customer="item"/>
-        <edit-customer-component :customer="item"/>
+        <edit-customer-component
+          @customerChanged="customer => customers[customers.findIndex(obj => obj.id = customer.id)] = customer"
+          :customer="item"/>
         <v-btn @click="deleteCustomer(item)">
           Löschen
         </v-btn>

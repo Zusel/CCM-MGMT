@@ -1,8 +1,12 @@
 package de.itstimetoforget.backend.rest.service;
 
+import de.itstimetoforget.backend.rest.entity.History;
 import de.itstimetoforget.backend.rest.provider.HistoryProvider;
+import javassist.NotFoundException;
 import org.javers.core.Changes;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class HistoryService {
@@ -14,15 +18,15 @@ public class HistoryService {
         this.historyProvider = historyProvider;
     }
 
-    public Changes getCustomerHistory(Long id) {
+    public List<History> getCustomerHistory(Long id) {
         return historyProvider.getCustomerHistory(id);
     }
 
-    public Changes getCompleteHistory() {
+    public List<History> getCompleteHistory() {
         return historyProvider.getCompleteHistory();
     }
 
-    public Changes getChangesByClass(Class clazz){
-        return historyProvider.getHistoryByClass(clazz);
+    public List<History> getChangesByClass(String clazz, Long id) throws NotFoundException {
+        return historyProvider.getHistoryByClass(clazz, id);
     }
 }

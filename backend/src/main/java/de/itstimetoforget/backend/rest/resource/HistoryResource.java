@@ -2,6 +2,7 @@ package de.itstimetoforget.backend.rest.resource;
 
 import de.itstimetoforget.backend.rest.entity.Customer;
 import de.itstimetoforget.backend.rest.entity.Employee;
+import de.itstimetoforget.backend.rest.entity.History;
 import de.itstimetoforget.backend.rest.entity.Order;
 import de.itstimetoforget.backend.rest.service.HistoryService;
 import jakarta.websocket.server.PathParam;
@@ -23,23 +24,13 @@ public class HistoryResource {
         this.historyService = historyService;
     }
 
-    @GetMapping(path = "/customer/{id}")
-    public Changes getCustomerHistory(@PathVariable Long id) {
-        return historyService.getCustomerHistory(id);
-    }
-
     @GetMapping(path = "")
-    public Changes getCompleteHistory() {
+    public List<History> getCompleteHistory() {
         return historyService.getCompleteHistory();
     }
 
-    @GetMapping("/{type}")
-    public Changes getHistoryByType(@PathVariable String type) throws NotFoundException {
-        return switch (type) {
-            case "customer" -> historyService.getChangesByClass(Customer.class);
-            case "employee" -> historyService.getChangesByClass(Employee.class);
-            case "order" -> historyService.getChangesByClass(Order.class);
-            default -> throw new NotFoundException("Unknown type!");
-        };
+    @GetMapping(value = {"/{type}", "/{type}/{id}"})
+    public List<History> getHistoryByType(@PathVariable String type, @PathVariable(required = false) Long id) throws NotFoundException {
+        return historyService.getChangesByClass(type, id);
     }
 }
