@@ -68,11 +68,28 @@ public class CustomerProvider {
         if (!StringUtils.isBlank(customer.getMobileNumber())) {
             predicates.add(criteriaBuilder.like(customerRoot.get("mobileNumber"), "%" + customer.getMobileNumber() + "%"));
         }
-
-
         if (!predicates.isEmpty()) {
             criteriaQuery.where(predicates.toArray(new Predicate[0]));
         }
+        return entityManager.createQuery(criteriaQuery).getResultList();
+    }
+
+    public List<Customer> filterCustomer(String searchTerm) {
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Customer> criteriaQuery = criteriaBuilder.createQuery(Customer.class);
+        Root<Customer> customerRoot = criteriaQuery.from(Customer.class);
+        criteriaQuery.select(customerRoot);
+        List<Predicate> predicates = new ArrayList<>();
+        predicates.add(criteriaBuilder.like(customerRoot.get("firstName"), "%" + searchTerm + "%"));
+        predicates.add(criteriaBuilder.like(customerRoot.get("lastName"), "%" + searchTerm + "%"));
+        predicates.add(criteriaBuilder.like(customerRoot.get("city"), "%" + searchTerm + "%"));
+        predicates.add(criteriaBuilder.like(customerRoot.get("email"), "%" + searchTerm + "%"));
+        predicates.add(criteriaBuilder.like(customerRoot.get("landlineNumber"), "%" + searchTerm + "%"));
+        predicates.add(criteriaBuilder.like(customerRoot.get("street"), "%" + searchTerm + "%"));
+        predicates.add(criteriaBuilder.like(customerRoot.get("postcode"), "%" + searchTerm + "%"));
+        predicates.add(criteriaBuilder.like(customerRoot.get("streetNumber"), "%" + searchTerm + "%"));
+        predicates.add(criteriaBuilder.like(customerRoot.get("mobileNumber"), "%" + searchTerm + "%"));
+        criteriaQuery.where(criteriaBuilder.or(predicates.toArray(new Predicate[0])));
         return entityManager.createQuery(criteriaQuery).getResultList();
     }
 }

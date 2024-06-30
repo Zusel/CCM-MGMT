@@ -5,7 +5,6 @@
     <v-data-table
       :headers="dataTableHeaders"
       :items="customers"
-      :search="searchTerm"
       item-key="id"
       style="max-height: 70vh; overflow-y: scroll;">
       <template v-slot:[`item.actions`]="{item}">
@@ -57,7 +56,12 @@ export default {
   ,
   methods: {
     getCustomer: function () {
-      RESTUtils.sendGetRequest("/customer")
+      let path = "/customer"
+
+      if(this.searchTerm){
+        path = "/customer/filter/" + this.searchTerm
+      }
+      RESTUtils.sendGetRequest(path)
         .then(response => {
           this.customers = response.data;
         })
@@ -66,6 +70,11 @@ export default {
     deleteCustomer: function (customer) {
       RESTUtils.sendDeleteRequest("/customer", customer);
       this.customers.splice(this.customers.indexOf(customer), 1);
+    }
+  },
+  watch: {
+    searchTerm: function () {
+      this.getCustomer();
     }
   }
 }

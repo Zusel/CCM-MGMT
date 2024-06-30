@@ -78,6 +78,11 @@ public class CustomerResource {
         return customerService.filterCustomer(customer);
     }
 
+    @GetMapping(path = "/filter/{searchTerm}")
+    public List<Customer> filterCustomerWithSearchTerm(@PathVariable String searchTerm) {
+        return customerService.filterCustomer(searchTerm);
+    }
+
     @GetMapping(path = "/{userId}")
     public Customer getCustomerById(@PathVariable Long userId, HttpServletResponse response) {
         Customer customer = customerService.getCustomerById(userId);

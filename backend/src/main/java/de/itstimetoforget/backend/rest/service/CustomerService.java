@@ -47,4 +47,8 @@ public class CustomerService {
     public List<Customer> filterCustomer(Customer customer) {
         return customerProvider.filterCustomer(customer);
     }
+
+    public List<Customer> filterCustomer(String searchTerm) {
+        return customerProvider.filterCustomer(searchTerm);
+    }
 }
